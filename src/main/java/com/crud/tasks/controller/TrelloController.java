@@ -1,9 +1,10 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.CreatedTrelloCard;
+import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
 import com.crud.tasks.service.TrelloService;
+import com.crud.tasks.trello.facade.TrelloFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,20 +18,34 @@ import java.util.List;
 public class TrelloController {
 
 //    private final TrelloClient trelloClient;
-    private final TrelloService trelloService;
+//    private final TrelloService trelloService;
+
+    private final TrelloFacade trelloFacade;
 
     @GetMapping("boards")
     public ResponseEntity<List<TrelloBoardDto>> getTrelloBoards() {
-        return ResponseEntity.ok(trelloService.fetchTrelloBoards());
+        return ResponseEntity.ok(trelloFacade.fetchTrelloBoards());
     }
-
 
     @PostMapping("cards")
-    public ResponseEntity<CreatedTrelloCard> createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
-        return ResponseEntity.ok(trelloService.createTrelloCard(trelloCardDto));
+    public ResponseEntity<CreatedTrelloCardDto> createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+        return ResponseEntity.ok(trelloFacade.createCard(trelloCardDto));
     }
-
 }
+
+
+//    @GetMapping("boards")
+//    public ResponseEntity<List<TrelloBoardDto>> getTrelloBoards() {
+//        return ResponseEntity.ok(trelloService.fetchTrelloBoards());
+//    }
+//
+//
+//    @PostMapping("cards")
+//    public ResponseEntity<CreatedTrelloCardDto> createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+//        return ResponseEntity.ok(trelloService.createTrelloCard(trelloCardDto));
+//    }
+//}
+
 //    @PostMapping("cards")
 //    public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
 //        return trelloClient.createNewCard(trelloCardDto);
@@ -57,7 +72,7 @@ public class TrelloController {
 //        trelloBoards.stream()
 //                .filter(board -> board.getId() != null && board.getName() != null)  // Sprawdzamy, czy id i name są ustawione
 //                .filter(board -> board.getName().contains("Kodilla"))                // Tylko tablice z "Kodilla" w nazwie
-////                .forEach(board -> System.out.println(board.getId() + " " + board.getName()));
+/// /                .forEach(board -> System.out.println(board.getId() + " " + board.getName()));
 //    }
 //}
 
