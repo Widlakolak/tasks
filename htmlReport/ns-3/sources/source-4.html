@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > TrelloController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.crud.tasks.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: TrelloController (com.crud.tasks.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">TrelloController</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.crud.tasks.controller;
+&nbsp;
+&nbsp;import com.crud.tasks.domain.CreatedTrelloCardDto;
+&nbsp;import com.crud.tasks.domain.TrelloBoardDto;
+&nbsp;import com.crud.tasks.domain.TrelloCardDto;
+&nbsp;import com.crud.tasks.service.TrelloService;
+&nbsp;import com.crud.tasks.trello.facade.TrelloFacade;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/v1/trello&quot;)
+&nbsp;@RequiredArgsConstructor
+&nbsp;@CrossOrigin(&quot;*&quot;)
+&nbsp;public class TrelloController {
+&nbsp;
+&nbsp;//    private final TrelloClient trelloClient;
+&nbsp;//    private final TrelloService trelloService;
+&nbsp;
+&nbsp;    private final TrelloFacade trelloFacade;
+&nbsp;
+&nbsp;    @GetMapping(&quot;boards&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;TrelloBoardDto&gt;&gt; getTrelloBoards() {
+<b class="nc">&nbsp;        return ResponseEntity.ok(trelloFacade.fetchTrelloBoards());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @PostMapping(&quot;cards&quot;)
+&nbsp;    public ResponseEntity&lt;CreatedTrelloCardDto&gt; createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+<b class="nc">&nbsp;        return ResponseEntity.ok(trelloFacade.createCard(trelloCardDto));</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+&nbsp;//    @GetMapping(&quot;boards&quot;)
+&nbsp;//    public ResponseEntity&lt;List&lt;TrelloBoardDto&gt;&gt; getTrelloBoards() {
+&nbsp;//        return ResponseEntity.ok(trelloService.fetchTrelloBoards());
+&nbsp;//    }
+&nbsp;//
+&nbsp;//
+&nbsp;//    @PostMapping(&quot;cards&quot;)
+&nbsp;//    public ResponseEntity&lt;CreatedTrelloCardDto&gt; createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+&nbsp;//        return ResponseEntity.ok(trelloService.createTrelloCard(trelloCardDto));
+&nbsp;//    }
+&nbsp;//}
+&nbsp;
+&nbsp;//    @PostMapping(&quot;cards&quot;)
+&nbsp;//    public CreatedTrelloCard createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
+&nbsp;//        return trelloClient.createNewCard(trelloCardDto);
+&nbsp;//    }
+&nbsp;//
+&nbsp;//    @GetMapping(&quot;/boards&quot;)
+&nbsp;//    public void getTrelloBoards() {
+&nbsp;//
+&nbsp;//        // GET request
+&nbsp;//        List&lt;TrelloBoardDto&gt; trelloBoards = trelloClient.getTrelloBoards();
+&nbsp;//
+&nbsp;//        trelloBoards.forEach(trelloBoardDto -&gt; {
+&nbsp;//            System.out.println(trelloBoardDto.getId() + &quot; - &quot; + trelloBoardDto.getName());
+&nbsp;//            System.out.println(&quot;This board contains lists: &quot;);
+&nbsp;//            trelloBoardDto.getLists().forEach(trelloList -&gt; {
+&nbsp;//                System.out.println(trelloList.getName() + &quot; - &quot; + trelloList.getId() + &quot; - &quot; + trelloList.isClosed());
+&nbsp;//            });
+&nbsp;//        });
+&nbsp;//    }
+&nbsp;//}
+&nbsp;
+&nbsp;//        List&lt;TrelloBoardDto&gt; trelloBoards = trelloClient.getTrelloBoards();
+&nbsp;//
+&nbsp;//        trelloBoards.stream()
+&nbsp;//                .filter(board -&gt; board.getId() != null &amp;&amp; board.getName() != null)  // Sprawdzamy, czy id i name są ustawione
+&nbsp;//                .filter(board -&gt; board.getName().contains(&quot;Kodilla&quot;))                // Tylko tablice z &quot;Kodilla&quot; w nazwie
+&nbsp;/// /                .forEach(board -&gt; System.out.println(board.getId() + &quot; &quot; + board.getName()));
+&nbsp;//    }
+&nbsp;//}
+&nbsp;
+&nbsp;
+&nbsp;//    @GetMapping(&quot;/boards&quot;)
+&nbsp;//    public void getTrelloBoards() {
+&nbsp;//        List&lt;TrelloBoardDto&gt; trelloBoards = trelloClient.getTrelloBoards();
+&nbsp;//        trelloBoards.forEach(trelloBoardDto -&gt;
+&nbsp;//                System.out.println(trelloBoardDto.getId() + &quot; &quot; + trelloBoardDto.getName())
+&nbsp;//        );
+&nbsp;//    }
+&nbsp;//  }
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-05-20 18:42</div>
+</div>
+</body>
+</html>
