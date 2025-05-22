@@ -12,11 +12,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -109,5 +108,16 @@ class TaskControllerTest {
         // Then
         verify(dbService, times(1)).saveTask(task);
         assertThat(response.getStatusCodeValue()).isEqualTo(200);
+    }
+
+    @Test
+    void shouldThrowWhenTaskNotFound() throws TaskNotFoundException {
+        // Given
+        when(dbService.getTask(42L)).thenThrow(new TaskNotFoundException());
+
+        // When / Then
+        assertThatThrownBy(() -> taskController.getTask(42L))
+                .isInstanceOf(TaskNotFoundException.class)
+                .hasMessage(null);
     }
 }
